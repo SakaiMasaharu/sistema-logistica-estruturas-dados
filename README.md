@@ -20,7 +20,7 @@ Conforme as exigências do edital (Seção 7.2), a demonstração do executável
 O sistema foi desenvolvido em Java. Para reproduzir o ambiente, gerar os dados determinísticos e extrair as métricas, siga o fluxo de execução abaixo em um terminal:
 
 ### Passo A: Compilação
-Faça o download dos arquivos do repositório no GitHub disponível em: .
+Faça o download dos arquivos deste repositório do GitHub.
 Em seguida, utilizando um terminal, navegue até o diretório raiz do projeto e compile todos os arquivos fonte utilizando o comando:
 
 *javac *.java*
