@@ -7,9 +7,9 @@
 
 ---
 
-## 📹 1. Demonstração e Defesa (Vídeo)
+## 📹 1. Demonstração (Vídeo)
 
-Conforme as exigências do edital (Seção 7.2), a demonstração do executável rodando (fluxo integrado dos três módulos) e explicação das decisões de projeto e dos resultados obtidos estão registradas no vídeo abaixo:
+O vídeo com a demonstração do executável rodando (fluxo integrado dos três módulos) e explicação das decisões de projeto e dos resultados obtidos está disponível no YouTube:
 
 **Link para o Vídeo:** [https://www.youtube.com/watch?v=????????????]
 
