@@ -49,7 +49,7 @@ Para submeter as estruturas de dados a testes de estresse computacional e reprod
 **Justificativa Técnica:**
 A escolha do módulo Hash para aprofundamento fundamenta-se na sua criticidade para a resiliência e escalabilidade de sistemas corporativos. Em ambientes de administração de sistemas e infraestruturas de alta concorrência, a latência na recuperação de registros é o gargalo mais comum e a tabela hash garante complexidade de tempo assintótica O(1) no caso médio para operações de busca, inserção e remoção.
 
-Para comprovar o comportamento da estrutura sob níveis variados de estresse e densidade, este trabalho implementou do zero e comparou as seguintes abordagens:
+Para comprovar o comportamento da estrutura sob níveis variados de estresse e densidade, este trabalho implementou e comparou as seguintes abordagens:
 *   **Tratamento de Colisões:** Encadeamento (Listas Dinâmicas) vs. Endereçamento Aberto (Sondagem Linear com manipulação de *Tombstones*).
 *   **Funções de Espalhamento (Hash):** Método da Divisão h(k) = k (mod M) vs. Método da Multiplicação (empregando a constante da Razão Áurea 0.6180339887 para garantir a distribuição mais uniforme possível das chaves, evitando repetições e minimizando colisões na tabela).
 
