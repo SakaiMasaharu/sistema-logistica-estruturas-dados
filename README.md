@@ -2,6 +2,7 @@
 
 **Autor:** Charles Masaharu Sakai  
 **Instituição:** Universidade Estadual de Londrina (UEL)  
+**Programa:** Mestrado em Ciência da Computação  
 **Disciplina:** 2COP212 - Algoritmos e Estrutura de Dados  
 **Semente Determinística:** `859L` (Matrícula: 202612560003)
 
