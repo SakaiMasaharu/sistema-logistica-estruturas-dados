@@ -80,10 +80,10 @@ Para evidenciar a resiliência das estratégias de colisão, o sistema foi subme
 A tabela abaixo reporta o tamanho da maior cadeia (para Encadeamento) e a maior sequência de sondagem (para Endereçamento Aberto), revelando o quão longe a estrutura degenerou do ideal O(1):
 
 | Estrutura Analisada | Função Hash | Fator de Carga (α) | Custo Medido | Diagnóstico Assintótico |  
-| **Encadeamento** | Divisão | 0.9800 | **17 nós** | O(1) - O custo médio de busca permanece constante. |  
-| **Encadeamento** | Multiplicação | 0.9800 | **~ 6 nós** | O(1) - A multiplicação espalhou os dados perfeitamente. |  
-| **End. Aberto** | Divisão | 0.9800 | **~ 50.000 saltos** | O(n) - Colapso causado pela concentração de 50.000 chaves em cerca de 3.000 *slots* iniciais. |  
-| **End. Aberto** | Multiplicação | 0.9800 | **~ 2.500 saltos** | O(n) - Degradação severa devido à saturação de memória. |
+| **Encadeamento** | Divisão | 0.9800 | 17 nós | O(1) - O custo médio de busca permanece constante. |  
+| **Encadeamento** | Multiplicação | 0.9800 | ~ 6 nós | O(1) - A multiplicação espalhou os dados perfeitamente. |  
+| **End. Aberto** | Divisão | 0.9800 | ~ 50.000 saltos | O(n) - Colapso causado pela concentração de chaves. |  
+| **End. Aberto** | Multiplicação | 0.9800 | ~ 2.500 saltos | O(n) - Degradação severa devido à saturação de memória. |
 
 ### 4.2. Módulo Árvores (Ordenação por Prazo)
 
