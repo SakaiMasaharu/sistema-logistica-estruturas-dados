@@ -83,7 +83,9 @@ public class AnalisadorEmpirico {
                 encadMultip.buscar(ultimoIdProcessado);
                 abertoDivisao.buscar(ultimoIdProcessado);
                 abertoMultip.buscar(ultimoIdProcessado);
-                arvorePrazos.buscarPorId(ultimoIdProcessado); // Força Full Tree Scan O(n)
+
+                // CORREÇÃO: Chamada padronizada para buscar o ID e forçar a varredura O(n)
+                arvorePrazos.buscar(ultimoIdProcessado);
             }
 
             // Tabulação das Métricas do Hash (Módulo Aprofundado)
@@ -100,8 +102,11 @@ public class AnalisadorEmpirico {
             System.out.println("\n[MÉTRICAS DA ÁRVORE (BST Desbalanceada)]");
             System.out.println(String.format("%-40s | %-20s", "Métrica Obrigatória", "Resultado"));
             System.out.println("----------------------------------------------------------------------------------");
+
+            // CORREÇÃO: Chamada para getAltura() para extrair a métrica exigida
             System.out.println(String.format("%-40s | %-20d", "Altura Final da Árvore (Degradação)",
-                    arvorePrazos.getAlturaTotal()));
+                    arvorePrazos.getAltura()));
+
             System.out.println(String.format("%-40s | %-20d", "Nós Visitados na Busca por ID O(n)",
                     arvorePrazos.getNosVisitadosUltimaBusca()));
             System.out.println("----------------------------------------------------------------------------------\n");

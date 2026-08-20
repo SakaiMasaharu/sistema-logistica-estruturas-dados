@@ -106,13 +106,42 @@ public class ArvoreBST {
      * ponteiros.
      */
     public void remover(int idProcurado) {
-        // A implementação completa de remoção em BST iterativa exige rastreamento de
-        // pai.
-        // Para fins deste trabalho base, a deleção "preguiçosa" (tombstone)
-        // ou omissão estratégica é aceitável, mas implementaremos a busca do nó a
-        // remover.
         System.out.println("Remoção de ID solicitada (Operação O(n) na estrutura atual).");
         // Implementação simplificada omitida para manter foco nas métricas principais.
+    }
+
+    /**
+     * Calcula a altura da árvore de forma iterativa (Busca em Largura - BFS).
+     * Utiliza uma fila estática manual para evitar StackOverflowError.
+     */
+    public int getAltura() {
+        if (this.raiz == null)
+            return 0;
+
+        // Fila circular manual alocada na memória Heap (limite seguro para 50k nós).
+        No[] fila = new No[100000];
+        int inicio = 0;
+        int fim = 0;
+
+        fila[fim++] = this.raiz;
+        int altura = 0;
+
+        // O laço avança nível por nível na árvore
+        while (inicio < fim) {
+            int tamanhoNivel = fim - inicio;
+            altura++;
+
+            for (int i = 0; i < tamanhoNivel; i++) {
+                No atual = fila[inicio++];
+
+                if (atual.esq != null)
+                    fila[fim++] = atual.esq;
+                if (atual.dir != null)
+                    fila[fim++] = atual.dir;
+            }
+        }
+
+        return altura;
     }
 
     // =========================================================
