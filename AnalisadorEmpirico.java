@@ -19,7 +19,7 @@ public class AnalisadorEmpirico {
 
     public static void main(String[] args) {
         System.out.println("==================================================================================");
-        System.out.println(" AUDITORIA DE INFRAESTRUTURA E BENCHMARKING DE COMPLEXIDADE (MÓDULOS INTEGRADOS)  ");
+        System.out.println(" BENCHMARKING DE COMPLEXIDADE (MÓDULOS INTEGRADOS)  ");
         System.out.println("==================================================================================\n");
 
         String[] cenariosPedidos = {
@@ -29,12 +29,12 @@ public class AnalisadorEmpirico {
                 "pedidos_desafio.csv"
         };
 
-        // 1. Auditoria dos Módulos de Hash (Aprofundado) e Árvore (Base 1)
+        // 1. Auditoria dos Módulos de Hash (Aprofundado) e Árvore
         for (String arquivo : cenariosPedidos) {
             executarBateriaHashEArvore(arquivo);
         }
 
-        // 2. Auditoria do Módulo de Grafos (Base 2)
+        // 2. Auditoria do Módulo de Grafos
         executarAuditoriaGrafos("malha.csv");
     }
 
@@ -103,10 +103,12 @@ public class AnalisadorEmpirico {
             System.out.println(String.format("%-40s | %-20s", "Métrica Obrigatória", "Resultado"));
             System.out.println("----------------------------------------------------------------------------------");
 
-            // CORREÇÃO: Chamada para getAltura() para extrair a métrica exigida
+            // Chamada para getAltura() para obter a altura da árvore
             System.out.println(String.format("%-40s | %-20d", "Altura Final da Árvore (Degradação)",
                     arvorePrazos.getAltura()));
 
+            // Chamada para getNosVisitadosUltimaBusca() para obter a quantidade de nós
+            // visitados
             System.out.println(String.format("%-40s | %-20d", "Nós Visitados na Busca por ID O(n)",
                     arvorePrazos.getNosVisitadosUltimaBusca()));
             System.out.println("----------------------------------------------------------------------------------\n");

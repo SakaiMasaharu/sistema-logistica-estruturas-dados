@@ -5,18 +5,20 @@ import java.io.IOException;
 /**
  * Classe Orquestradora do Sistema de Logística.
  * Responsável por integrar os módulos de Árvore BST, Tabela Hash e Grafos
- * em um fluxo de execução único, conforme a Seção 5.4 do edital.
+ * em um fluxo de execução dinâmico e determinístico (Seção 5.4).
  */
 public class SistemaLogistica {
 
     // Instâncias das Estruturas de Dados desenvolvidas do zero
     private static ArvoreBST arvorePrazos = new ArvoreBST();
 
-    // NOTA ARQUITETURAL: Assumindo que você nomeou suas classes assim.
-    // Ajuste os nomes caso sua Tabela Hash ou Grafo tenham nomenclaturas
-    // diferentes.
-    // private static TabelaHash hashPedidos = new TabelaHash(51017);
-    // private static Grafo grafoMalha = new Grafo(25);
+    // Variável para armazenar dinamicamente um pedido real para a demonstração
+    private static Pedido pedidoDemonstracao = null;
+
+    // NOTA: Remova os comentários "//" das instâncias abaixo assim que
+    // as classes Hash e Grafo estiverem implementadas no seu projeto.
+    // private static TabelaHash hashPedidos = new HashEncadeamento(51017, true);
+    // private static GrafoMatriz grafoMalha = new GrafoMatriz(25);
 
     public static void simular() {
         System.out.println("==================================================");
@@ -24,32 +26,42 @@ public class SistemaLogistica {
         System.out.println("==================================================\n");
 
         // ---------------------------------------------------------
-        // ETAPA 1: Carga de Dados (Módulo Árvore e Módulo Hash)
+        // ETAPA 1: Carga de Dados Dinâmica
         // ---------------------------------------------------------
-        System.out.println("[ETAPA 1] Carregando cenário de dados...");
+        System.out.println("[ETAPA 1] Carregando cenário de dados gerado deterministicamente...");
         carregarPedidos("pedidos_desafio.csv");
-        // carregarMalha("malha.csv"); // Carregaria as arestas no Grafo
+        // carregarMalha("malha.csv");
 
-        System.out.println("✓ Carga concluída sem StackOverflowError. Árvore operando em iteração.\n");
+        System.out.println("✓ Carga concluída. Árvore operando iterativamente para evitar StackOverflow.\n");
+
+        // Proteção de fluxo: garante que o arquivo não estava vazio
+        if (pedidoDemonstracao == null) {
+            System.err.println("[ERRO CRÍTICO] Nenhum pedido foi carregado. Verifique os arquivos .csv.");
+            return;
+        }
 
         // ---------------------------------------------------------
         // ETAPA 2: Integração de Fluxo (Seção 5.4 do Edital)
         // ---------------------------------------------------------
         System.out.println("[ETAPA 2] Executando Fluxo Integrado Obrigatório...");
 
-        // A) Consulta rápida de um pedido recém-chegado (O(1) no Hash)
-        int idAlvo = 1023; // Exemplo de ID que existe no seu CSV
+        // Extração dinâmica dos atributos do pedido capturado
+        int idAlvo = pedidoDemonstracao.getIdPedido();
+        String origem = pedidoDemonstracao.getCentroOrigem();
+        String destino = pedidoDemonstracao.getCentroDestino();
+
+        // A) Consulta rápida O(1) no Módulo Aprofundado (Hash)
         System.out.println("\n-> A) Buscando Pedido #" + idAlvo + " instantaneamente no Hash:");
-        // Pedido p = hashPedidos.buscar(idAlvo);
-        // System.out.println(p.toString());
-        System.out.println("   [Simulação] Pedido #" + idAlvo + " encontrado no Módulo Hash.");
+        // Pedido pEncontrado = hashPedidos.buscar(idAlvo);
+        System.out.println("   [Simulação] Pedido #" + idAlvo + " (" + origem + " -> " + destino + ") encontrado.");
 
         // B) Cálculo de Rota de Entrega (Dijkstra no Grafo)
-        System.out.println("\n-> B) Planejando Rota de Entrega para o Pedido #" + idAlvo + ":");
-        // grafoMalha.calcularDijkstra(p.getCentroOrigem(), p.getCentroDestino());
-        System.out.println("   [Simulação] Dijkstra executado de CD_CTBA para CD_LOND. Custo: 383.");
+        System.out.println("\n-> B) Planejando Rota de Entrega na Malha Rodoviária:");
+        // int custoRota = grafoMalha.calcularDijkstra(origem, destino);
+        System.out
+                .println("   [Simulação] Dijkstra executado de " + origem + " para " + destino + ". Custo calculado.");
 
-        // C) Atualização de Status (Remoção Pós-Entrega na Árvore e Hash)
+        // C) Atualização de Status (Remoção Pós-Entrega nas estruturas)
         System.out.println("\n-> C) Pedido entregue. Removendo dos índices ativos:");
         arvorePrazos.remover(idAlvo);
         // hashPedidos.remover(idAlvo);
@@ -62,15 +74,12 @@ public class SistemaLogistica {
 
     /**
      * Utilitário para leitura do arquivo CSV de pedidos.
-     * O uso de bibliotecas I/O nativas para apoio é permitido pelo edital.
      */
     private static void carregarPedidos(String caminhoArquivo) {
         String linha;
         int contador = 0;
 
-        // Uso de try-with-resources para garantir o fechamento do arquivo (Clean Code)
         try (BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo))) {
-
             br.readLine(); // Pula o cabeçalho do CSV
 
             while ((linha = br.readLine()) != null) {
@@ -87,6 +96,11 @@ public class SistemaLogistica {
                     // Inserção na Árvore (e no Hash, simultaneamente)
                     arvorePrazos.inserir(novoPedido);
                     // hashPedidos.inserir(novoPedido);
+
+                    // Armazena o primeiro pedido válido para uso posterior na demonstração dinâmica
+                    if (pedidoDemonstracao == null) {
+                        pedidoDemonstracao = novoPedido;
+                    }
 
                     contador++;
                 }
