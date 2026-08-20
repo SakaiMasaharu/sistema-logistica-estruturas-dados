@@ -24,7 +24,7 @@ O sistema foi desenvolvido em Java. Para reproduzir o ambiente, gerar os dados d
 Faça o download dos arquivos deste repositório do GitHub.
 Em seguida, utilizando um terminal, navegue até o diretório raiz do projeto e compile todos os arquivos fonte utilizando o comando:
 
-*javac *.java*
+javac *.java
 
 ### Passo B: Geração da Infraestrutura e Carga (Determinística)
 Execute o gerador para criar os arquivos malha.csv e pedidos_*.csv. A topologia da malha e as colisões são baseadas exclusivamente na semente 859L. Execute o comando:
