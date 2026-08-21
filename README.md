@@ -43,7 +43,7 @@ Para submeter as estruturas de dados a testes de estresse computacional e reprod
 
 ---
 
-## 🔍 3. Módulo de Aprofundamento e Justificativa Arquitetural
+## 🔍 3. Módulo de Aprofundamento e Justificativa da Escolha
 
 **Módulo Escolhido:** Hash.
 
@@ -90,7 +90,7 @@ A tabela abaixo reporta o tamanho da maior cadeia (para Encadeamento) e a maior 
 
 Para a manutenção dos pedidos ordenados cronologicamente, foi adotada a implementação de uma **Árvore de Pesquisa Binária (BST) sem balanceamento**. Os registros foram indexados utilizando a regra de desempate exigida: `prazo_entrega * 1000000 + id_pedido`. 
 
-Análise de Complexidade: A busca por um ID específico exigiu uma varredura completa (Full Tree Scan). Os dados refletem o custo linear O(n) inerente à ausência de balanceamento e à busca sobre um atributo não indexado.
+Análise de Complexidade: A busca por um ID específico exigiu uma varredura completa (*Full Tree Scan*). Os dados refletem o custo linear O(n) inerente à ausência de balanceamento e à busca sobre um atributo não indexado.
 
 ### 4.3. Módulo Grafos (Roteamento e Infraestrutura)
 
@@ -102,27 +102,27 @@ Assim, as métricas topológicas (espaço de representação, custo da Árvore G
 
 ---
 
-## 🧠 5. Análise Crítica de Trade-offs
+## 🧠 5. Análise Crítica de *Trade-offs*
 
-Segue análise crítica dos trade-offs observados empiricamente e a comparação teórica das estruturas alternativas exigidas pelo projeto.
+Segue análise crítica dos *trade-offs* observados empiricamente e a comparação teórica das estruturas alternativas exigidas pelo projeto.
 
 ### 5.1. Módulo Aprofundado (Hash)
 
 A análise empírica do Módulo Hash revelou o comportamento assintótico prático das estratégias de resolução de colisão quando submetidas a cargas críticas (α ≈ 0.98).
 
-*   **Encadeamento vs. Endereçamento Aberto:** O Encadeamento exige o trade-off de alocar memória extra (ponteiros de nós) fora do vetor principal. No entanto, provou-se extremamente resiliente no cenário de desafio. A maior cadeia conteve apenas 17 elementos, mantendo a degradação de busca muito próxima a O(1). Em contrapartida, o Endereçamento Aberto (Sondagem Linear) economiza memória de ponteiros, mas sofreu um colapso (agrupamento primário) no método da Divisão, resultando em uma varredura de quase 50.000 saltos (comportamento linear O(n)) para resolver uma única colisão.
+*   **Encadeamento vs. Endereçamento Aberto:** O Encadeamento exige o *trade-off* de alocar memória extra (ponteiros de nós) fora do vetor principal. No entanto, provou-se extremamente resiliente no cenário de desafio. A maior cadeia conteve apenas 17 elementos, mantendo a degradação de busca muito próxima a O(1). Em contrapartida, o Endereçamento Aberto (Sondagem Linear) economiza memória de ponteiros, mas sofreu um colapso (agrupamento primário) no método da Divisão, resultando em uma varredura de quase 50.000 saltos (comportamento linear O(n)) para resolver uma única colisão.
 *   **Divisão vs. Multiplicação:** A função da Divisão é computacionalmente mais barata (uma operação de módulo), mas é altamente suscetível a padrões nos dados de entrada. A função da Multiplicação (usando a Razão Áurea) tem um custo de CPU ligeiramente maior, mas evitou o colapso estrutural espalhando os múltiplos de 17 uniformemente pela tabela.
 
 ### 5.2. Módulo Árvores
 
-O sistema implementou a Árvore de Pesquisa Binária (BST) sem balanceamento. A comparação teórica contra a alternativa Rubro-Negra representa o trade-off entre simplicidade de inserção e garantia de performance na busca.
+O sistema implementou a Árvore de Pesquisa Binária (BST) sem balanceamento. A comparação teórica contra a alternativa Rubro-Negra representa o *trade-off* entre simplicidade de inserção e garantia de performance na busca.
 
-*   **BST sem balanceamento (Implementada):** A vantagem reside na ausência de custo computacional auxiliar durante a inserção, pois não há rotações. O trade-off é a ausência de garantias de limite superior. Se os prazos de entrega chegarem em ordem estritamente crescente ou decrescente, a árvore degenera em uma lista ligada, resultando em complexidade O(n) para buscas, inserções e deleções.
+*   **BST sem balanceamento (Implementada):** A vantagem reside na ausência de custo computacional auxiliar durante a inserção, pois não há rotações. O *trade-off* é a ausência de garantias de limite superior. Se os prazos de entrega chegarem em ordem estritamente crescente ou decrescente, a árvore degenera em uma lista ligada, resultando em complexidade O(n) para buscas, inserções e deleções.
 *   **Árvore Rubro-Negra (Teórica):** Paga-se um custo computacional contínuo (pequeno, mas constante) para realizar rotações de nós durante cada operação de troca. O benefício arquitetural é garantir matematicamente que a altura da árvore nunca excederá o custo de busca de O(log n).
 
 ### 5.3. Módulo Grafos
 
-A representação do grafo logístico adotou a Matriz de Adjacência. O trade-off em relação à Lista de Adjacência envolve o gerenciamento de espaço de memória versus tempo de acesso.
+A representação do grafo logístico adotou a Matriz de Adjacência. O *trade-off* em relação à Lista de Adjacência envolve o gerenciamento de espaço de memória versus tempo de acesso.
 
 *   **Matriz de Adjacência (Implementada):** Ocupa um espaço fixo e quadrático |V|², independentemente de o grafo ser denso ou esparso. O benefício é o tempo de consulta constante O(1) para verificar se existe uma estrada entre dois centros. Dado que a nossa rede é pequena (limite máximo de 25 instalações geradas deterministicamente), existe o desperdício de memória, porém é irrelevante para a RAM moderna.
 *   **Lista de Adjacência (Teórica):** É a estrutura ideal para grafos esparsos, pois consume apenas o espaço estritamente necessário para os vértices e arestas reais |V| + 2|A|. O trade-off é que para descobrir se há uma rota direta entre dois centros é necessário percorrer a lista de vizinhos, aumentando a complexidade de tempo e de gerenciamento de ponteiros.
@@ -141,7 +141,7 @@ Com base nas métricas extraídas e na teoria fundamentada, se este sistema foss
 
 Embora o sistema seja funcional e atenda aos requisitos de complexidade exigidos pela avaliação, a restrição arquitetural de não utilizar bibliotecas nativas impôs algumas limitações estruturais inerentes à implementação adotada:
 
-1.  **Ausência de Redimensionamento Dinâmico (Rehashing):** 
+1.  **Ausência de Redimensionamento Dinâmico (*Rehashing*):** 
     A Tabela Hash foi construída sobre um array estático rigidamente dimensionado (M = 51017). O sistema atual não implementa uma rotina de resize. Consequentemente, se o volume de pedidos ultrapassar a capacidade máxima projetada, a estratégia de Endereçamento Aberto entrará em loop infinito (gerando falha por falta de slots livres), e a de Encadeamento degradará severamente para O(n) contínuo.
 2.  **Degradação Linear da Árvore BST:** 
     O Módulo Árvore implementou a BST sem balanceamento automático. Portanto, a estrutura é vulnerável à ordem de chegada dos dados. A inserção sequencial de prazos de entrega transformará a árvore em uma lista encadeada, degradando as operações de O(log n) para O(n).
