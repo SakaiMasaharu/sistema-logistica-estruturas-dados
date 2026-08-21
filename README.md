@@ -12,7 +12,7 @@
 
 O vídeo com a demonstração do executável rodando (fluxo integrado dos três módulos) e explicação das decisões de projeto e dos resultados obtidos está disponível no YouTube:
 
-**Link para o Vídeo:** [https://www.youtube.com/watch?v=????????????]
+**Link para o Vídeo:** [https://youtu.be/QfhCQEKIk7k]
 
 ---
 
@@ -32,11 +32,11 @@ Execute o gerador para criar os arquivos malha.csv e pedidos_*.csv. A topologia 
 *java GeradorDados*
 
 ### Passo C: O Fluxo Integrado (A Aplicação em Produção)
-Para simular o ecossistema logístico em tempo real (Inserção -> Rota de Entrega -> Baixa do Pedido), utlize:
+Para simular o ecossistema logístico em tempo real (Inserção -> Rota de Entrega -> Baixa do Pedido), utilize:
 
 *java SistemaLogistica*
 
-### Passo D: Auditoria e Extração de Métricas (Benchmarking)
+### Passo D: Métricas (Benchmarking)
 Para submeter as estruturas de dados a testes de estresse computacional e reproduzir exatamente as contagens tabuladas na Seção 4 deste relatório:
 
 *java AnalisadorEmpirico*
@@ -146,7 +146,7 @@ Embora o sistema seja funcional e atenda aos requisitos de complexidade exigidos
 2.  **Degradação Linear da Árvore BST:** 
     O Módulo Árvore implementou a BST sem balanceamento automático. Portanto, a estrutura é vulnerável à ordem de chegada dos dados. A inserção sequencial de prazos de entrega transformará a árvore em uma lista encadeada, degradando as operações de O(log n) para O(n).
 3.  **Resolução de Nomes de Vértices:** 
-    Para converter as Strings (nomes dos centros de distribuição) em índices inteiros da Matriz de Adjacência sem o uso de dicionários nativos (como `HashMap`), foi implementada uma busca linear sobre um array estático. Para o cenário desta malha restrita (máximo de 25 centros), o custo de tempo é imperceptível. Contudo, em uma topologia em escala nacional (milhares de centros logísticos), essa resolução linear se tornaria um gargalo.
+    Para converter as Strings (nomes dos centros de distribuição) em índices inteiros da Matriz de Adjacência sem o uso de dicionários nativos, foi implementada uma busca linear sobre um array estático. Para o cenário desta malha restrita (máximo de 25 centros), o custo de tempo é imperceptível. Contudo, em uma topologia em escala nacional (milhares de centros logísticos), essa resolução linear se tornaria um gargalo.
 
 ---
 
